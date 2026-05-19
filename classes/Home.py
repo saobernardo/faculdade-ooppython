@@ -9,15 +9,6 @@ class Home:
         self.extra_room_price = extra_room_price
         self.garage_price = garage_price
         self.garage_vacancy_multiplier = garage_vacancy_multiplier
-
-    def show_parameters(self):
-        return f'''
-         --- {self.__class__.__name__} ---
-        Aluguel: R${self.price}\n
-        Quarto extra: R${self.extra_room_price if self.extra_room_price != None else 'Sem definição de quarto extra'}
-        Garagem: R${self.garage_price}
-        Extra por garagem: R${self.garage_vacancy_multiplier if self.garage_vacancy_multiplier != None else 'Sem definição de garagem extra'}
-        '''
     
     def get_questions(self):
         while True:
