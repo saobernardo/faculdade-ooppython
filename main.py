@@ -25,7 +25,7 @@ class Main:
             Main.menu_ver_imoveis(opcao)
         except ValueError:
             OSOperations.clear()
-            print('Informe uma opção válida, rato')
+            print('Informe uma opção válida')
             time.sleep(2)
             Main.first_menu()
 
