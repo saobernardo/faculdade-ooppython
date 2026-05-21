@@ -22,7 +22,7 @@ class Main:
         opcao = int(input())
 
         try:
-            Main.menu_ver_imoveis(opcao)
+            Main.handle_options(opcao)
         except ValueError:
             OSOperations.clear()
             print('Informe uma opção válida')
@@ -30,7 +30,7 @@ class Main:
             Main.first_menu()
 
     @staticmethod
-    def menu_ver_imoveis(opcao):
+    def handle_options(opcao):
         OSOperations.clear()
 
         if opcao not in [1, 2]:
@@ -46,21 +46,25 @@ class Main:
     def show_home_options():
         OSOperations.clear()
 
+        apartment = Apartment()
+        house = House()
+        studio = Studio()
+
         print(f'''
         --- Apartamento ---
-        Aluguel: R${Apartment.price}
-        Quarto extra: R${Apartment.extra_room_price}
-        Garagem: R${Apartment.garage_price}
+        Aluguel: R${apartment.price:.2f}
+        Quarto extra: R${apartment.extra_room_price:.2f}
+        Garagem: R${apartment.garage_price:.2f}
 
         --- Casa ---
-        Aluguel: R${House.price}
-        Quarto extra: R${House.extra_room_price}
-        Garagem: R${House.garage_price}
+        Aluguel: R${house.price:.2f}
+        Quarto extra: R${house.extra_room_price:.2f}
+        Garagem: R${house.garage_price:.2f}
 
         --- Estudio ---
-        Aluguel: R${Studio.price}
-        Quarto extra: R${Studio.extra_room_price}
-        Garagem: R${Studio.garage_price}
+        Aluguel: R${studio.price:.2f}
+        Quarto extra: R${studio.extra_room_price:.2f}
+        Garagem: R${studio.garage_price:.2f}
         ''')
         time.sleep(5)
         Main.first_menu()
