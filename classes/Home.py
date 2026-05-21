@@ -59,7 +59,7 @@ class Home:
             except:
                 print('Por favor, digite um número inteiro')
 
-        result = self.resolve_payment(bedrooms, garage, kids, installments, vacancy_garage)
+        result = self.resolve_payment(self.price, bedrooms, garage, kids, installments, vacancy_garage)
 
         self.exportCSV(result)
 
@@ -68,14 +68,14 @@ class Home:
 
         return
 
-    def resolve_payment(self, bedrooms, garage, kids, installments, vacancy_garage = 0):
+    def resolve_payment(self, price, bedrooms, garage, kids, installments, vacancy_garage = 0):
         value_bedroom = self.extra_room_price if bedrooms >= 2 else 0.0
         value_garage = self.garage_price if garage == True else 0.0
 
         if(self.__class__.__name__ == 'Studio'):
             value_garage = value_garage + (self.garage_vacancy_multiplier * (vacancy_garage - 2)) if vacancy_garage > 2 else value_garage
 
-        total_value = self.VALUE_CONTRACT + value_bedroom + value_garage
+        total_value = self.VALUE_CONTRACT + price + value_bedroom + value_garage
 
         if(kids == False):
             discount = total_value * self.NO_KIDS_DISCOUNT
@@ -94,6 +94,7 @@ class Home:
 
         return {
             "total_value": total_value,
+            "price": price,
             "installments": installments,
             "installment_value" : installment_value if installments > 1 else 0.0,
             "value_garage": value_garage,
@@ -108,7 +109,7 @@ class Home:
                 if response == "N":
                     return
                 
-                CSVOperations.export(data['total_value'], data['installments'], data['installment_value'], data['value_garage'], data['value_bedroom'])
+                CSVOperations.export(data['total_value'], data['price'], data['installments'], data['installment_value'], data['value_garage'], data['value_bedroom'])
 
                 break
             print('''Digite um valor válido. S ou N''')
