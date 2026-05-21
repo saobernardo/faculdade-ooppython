@@ -1,3 +1,5 @@
+from classes.CSVOperations import CSVOperations
+
 import time
 
 class Home:
@@ -43,7 +45,7 @@ class Home:
         
         while True:
             kids = input('''\nTem crianças? (S|N) ''')
-            if kids == 'S' or kids == 'N':
+            if kids in ['S', 'N']:
                 kids = True if kids == 'S' else False
                 break
             print('''Digite um valor válido. S ou N''')
@@ -57,7 +59,12 @@ class Home:
             except:
                 print('Por favor, digite um número inteiro')
 
-        self.resolve_payment(bedrooms, garage, kids, installments, vacancy_garage)
+        result = self.resolve_payment(bedrooms, garage, kids, installments, vacancy_garage)
+
+        self.exportCSV(result)
+
+        print('Dados salvos com sucesso')
+        time.sleep(3)
 
         return
 
@@ -83,9 +90,26 @@ class Home:
                 Valor das parcelas: {installment_value:.2f}\n
                 Parcelado em {installments} vezes, sem juros
                 ''')
-            time.sleep(6)
+            time.sleep(4)
 
         return {
             "total_value": total_value,
-            "installment_value" : installment_value if installments > 1 else 0.0
+            "installments": installments,
+            "installment_value" : installment_value if installments > 1 else 0.0,
+            "value_garage": value_garage,
+            "value_bedroom": value_bedroom
         }
+    
+    def exportCSV(self, data):
+        while True:
+            response = input('Deseja exportar? (S/N) ')
+
+            if response in ['S', 'N']:
+                if response == "N":
+                    return
+                
+                CSVOperations.export(data['total_value'], data['installments'], data['installment_value'], data['value_garage'], data['value_bedroom'])
+
+                break
+            print('''Digite um valor válido. S ou N''')
+        

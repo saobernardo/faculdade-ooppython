@@ -15,7 +15,6 @@ class Main:
         print('''
         1. Ver imóveis disponíveis\n
         2. Alugar\n
-        3. Exportar contrato\n\n\n
         
         CTRL+C para fechar o programa
         ''')
@@ -26,7 +25,7 @@ class Main:
             Main.menu_ver_imoveis(opcao)
         except ValueError:
             OSOperations.clear()
-            print('Informe uma opção válida')
+            print('Informe uma opção válida, rato')
             time.sleep(2)
             Main.first_menu()
 
@@ -34,7 +33,7 @@ class Main:
     def menu_ver_imoveis(opcao):
         OSOperations.clear()
 
-        if opcao not in [1, 2, 3]:
+        if opcao not in [1, 2]:
             raise ValueError
         
         match(opcao):
@@ -42,8 +41,6 @@ class Main:
                 Main.show_home_options()
             case 2:
                 Main.menu_select_home_type()
-            case 3:
-                Main.select_contract()
     
     @staticmethod
     def show_home_options():
@@ -64,7 +61,6 @@ class Main:
         Aluguel: R${Studio.price}
         Quarto extra: R${Studio.extra_room_price}
         Garagem: R${Studio.garage_price}
-        
         ''')
         time.sleep(5)
         Main.first_menu()
@@ -95,10 +91,6 @@ class Main:
             case 3:
                 Studio().get_questions()
                 Main.first_menu()
-    
-    @staticmethod
-    def select_contract():
-        return
     
 if __name__ == "__main__":
     try:
