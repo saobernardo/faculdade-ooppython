@@ -4,6 +4,7 @@
 
 ## Como executar
 
-Execute o comando ```bash
+Execute o comando:
+```
 py main.py
 ```
